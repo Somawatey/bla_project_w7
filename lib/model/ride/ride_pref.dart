@@ -15,7 +15,25 @@ class RidePreference {
       required this.departureDate,
       required this.arrival,
       required this.requestedSeats});
+      
+//Compare this snippet from lib/model/ride/ride_pref.dart:
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is RidePreference &&
+        other.departure == departure &&
+        other.departureDate.isAtSameMomentAs(departureDate) &&
+        other.arrival == arrival &&
+        other.requestedSeats == requestedSeats;
+  }
 
+  @override
+  int get hashCode => Object.hash(
+        departure,
+        departureDate,
+        arrival,
+        requestedSeats,
+      );
   @override
   String toString() {
     return 'RidePref(departure: ${departure.name}, '

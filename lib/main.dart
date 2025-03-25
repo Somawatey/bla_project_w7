@@ -1,4 +1,6 @@
+import 'package:bla_project_w7/providers/rides_preferences_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'repository/mock/mock_locations_repository.dart';
 import 'repository/mock/mock_rides_repository.dart';
 import 'service/locations_service.dart';
@@ -11,12 +13,24 @@ import 'ui/theme/theme.dart';
 
 void main() {
   // 1 - Initialize the services
-  RidePrefService.initialize(MockRidePreferencesRepository());
   LocationsService.initialize(MockLocationsRepository());
   RidesService.initialize(MockRidesRepository());
+  
 
   // 2- Run the UI
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => RidesPreferencesProvider(
+            repository: MockRidePreferencesRepository(), // Your repository implementation
+          ),
+        ),
+        // Add other providers if needed
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

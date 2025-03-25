@@ -13,6 +13,8 @@ class MockRidePreferencesRepository extends RidePreferencesRepository {
 
   @override
   void addPreference(RidePreference preference) {
-    _pastPreferences.add(preference);
+    if (!_pastPreferences.contains(preference)) {
+      _pastPreferences.add(preference);
+    }
   }
 }

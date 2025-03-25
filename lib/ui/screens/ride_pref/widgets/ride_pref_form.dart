@@ -43,10 +43,25 @@ class _RidePrefFormState extends State<RidePrefForm> {
   // Initialize the Form attributes
   // ----------------------------------
 
-  @override
+    @override
   void initState() {
     super.initState();
-
+    _initializeFormValues();
+  }
+  
+  // Add didUpdateWidget to handle refresh issues
+  @override
+  void didUpdateWidget(RidePrefForm oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    
+    // If the initialPreference changes, we need to reinitialize our values
+    if (oldWidget.initialPreference != widget.initialPreference) {
+      _initializeFormValues();
+    }
+  }
+  
+  // Extract initialization logic to a separate method
+  void _initializeFormValues() {
     if (widget.initialPreference != null) {
       RidePreference current = widget.initialPreference!;
       departure = current.departure;
@@ -61,7 +76,6 @@ class _RidePrefFormState extends State<RidePrefForm> {
       requestedSeats = 1; // 1 seat book by default
     }
   }
-
   // ----------------------------------
   // Handle events
   // ----------------------------------
