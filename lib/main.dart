@@ -1,4 +1,4 @@
-import 'package:bla_project_w7/providers/rides_preferences_provider.dart';
+import 'package:bla_project_w7/ui/providers/rides_preferences_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'repository/mock/mock_locations_repository.dart';

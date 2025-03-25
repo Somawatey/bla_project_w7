@@ -1,4 +1,4 @@
-import 'package:bla_project_w7/providers/rides_preferences_provider.dart';
+import 'package:bla_project_w7/ui/providers/rides_preferences_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../model/ride/ride_filter.dart';
@@ -28,6 +28,8 @@ class RidesScreen extends StatelessWidget {
 
   void onPreferencePressed(
       BuildContext context, RidePreference currentPreference) async {
+    var rideProvider =
+        Provider.of<RidesPreferencesProvider>(context, listen: false);
     // Open a modal to edit the ride preferences
     RidePreference? newPreference = await Navigator.of(
       context,
@@ -38,8 +40,8 @@ class RidesScreen extends StatelessWidget {
     );
 
     if (newPreference != null) {
-      Provider.of<RidesPreferencesProvider>(context, listen: false)
-          .setCurrentPreferrence(newPreference);
+      // 1 - Update the current preference
+      rideProvider.setCurrentPreferrence(newPreference);
     }
   }
 
