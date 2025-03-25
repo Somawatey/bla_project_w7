@@ -1,5 +1,5 @@
 import 'package:bla_project_w7/model/ride/ride_pref.dart';
-import 'package:bla_project_w7/repository/ride_preferences_repository.dart';
+import 'package:bla_project_w7/data/repository/ride_preferences_repository.dart';
 import 'package:bla_project_w7/ui/providers/asyncValue.dart';
 import 'package:flutter/material.dart';
 

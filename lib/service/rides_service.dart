@@ -1,6 +1,6 @@
 import 'package:bla_project_w7/model/ride/ride_filter.dart';
 import 'package:bla_project_w7/model/ride/ride_pref.dart';
-import 'package:bla_project_w7/repository/rides_repository.dart';
+import 'package:bla_project_w7/data/repository/rides_repository.dart';
 
 
 import '../model/ride/ride.dart';
