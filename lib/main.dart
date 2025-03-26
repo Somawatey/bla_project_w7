@@ -1,3 +1,4 @@
+import 'package:bla_project_w7/data/repository/local/local_ride_preferences_repository.dart';
 import 'package:bla_project_w7/ui/providers/rides_preferences_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,10 +24,11 @@ void main() {
       providers: [
         ChangeNotifierProvider(
           create: (context) => RidesPreferencesProvider(
-            repository: MockRidePreferencesRepository(), // Your repository implementation
+            // repository: MockRidePreferencesRepository(), 
+            repository: LocalRidePreferencesRepository(),
           ),
         ),
-        // Add other providers if needed
+       
       ],
       child: MyApp(),
     ),

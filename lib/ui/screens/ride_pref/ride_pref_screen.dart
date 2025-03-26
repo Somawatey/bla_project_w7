@@ -22,7 +22,8 @@ const String blablaHomeImagePath = 'assets/images/blabla_home.png';
 class RidePrefScreen extends StatelessWidget {
   const RidePrefScreen({super.key});
 
-  void onRidePrefSelected(BuildContext context, RidePreference newPreference) async {
+  void onRidePrefSelected(
+      BuildContext context, RidePreference newPreference) async {
     // Use the provider to set the current preference
     Provider.of<RidesPreferencesProvider>(context, listen: false)
         .setCurrentPreferrence(newPreference);
@@ -36,7 +37,7 @@ class RidePrefScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final ridesPrefsProvider = Provider.of<RidesPreferencesProvider>(context);
     final currentRidePreference = ridesPrefsProvider.currentPreference;
-   // final pastPreferences = ridesPrefsProvider.preferencesHistory;
+    // final pastPreferences = ridesPrefsProvider.preferencesHistory;
 
     return Stack(
       children: [
@@ -69,8 +70,12 @@ class RidePrefScreen extends StatelessWidget {
                   SizedBox(height: BlaSpacings.m),
 
                   // 2.2 Optionally display a list of past preferences
-
-                  _buildPreferencesList(ridesPrefsProvider),
+                  
+                  SizedBox(
+                    height: 200,
+                    child: _buildPreferencesList(ridesPrefsProvider),
+                  )
+                  
                 ],
               ),
             ),
@@ -81,37 +86,38 @@ class RidePrefScreen extends StatelessWidget {
   }
 
   Widget _buildPreferencesList(RidesPreferencesProvider ridesPrefsProvider) {
-  final pastPrefs = ridesPrefsProvider.pastPreferences;
+    final pastPrefs = ridesPrefsProvider.pastPreferences;
 
-  switch (pastPrefs.state) {
-    case AsyncValueState.loading:
-       return const Center(child: CircularProgressIndicator()); // display a progress
+    switch (pastPrefs.state) {
+      case AsyncValueState.loading:
+        return const Center(
+            child: CircularProgressIndicator()); // display a progress
 
-    case AsyncValueState.error:
-      return const BlaError(message: 'No connection. Try later'); // display a error
+      case AsyncValueState.error:
+        return Center(
+          child: const BlaError(
+              message: 'No connection. Try later'),
+        ); // display an error
 
-    case AsyncValueState.success:
-      if (pastPrefs.data == null) {
-          return const Center (child: Text('No past preference yet!')); // display an empty state
+      case AsyncValueState.success:
+        if (pastPrefs.data == null) {
+          return const Center(
+              child: Text('No past preference yet!')); // display an empty state
         }
-      return SizedBox(
-        height: 200,
-        child: ListView.builder(
+        return ListView.builder(
           shrinkWrap: true, // Fix ListView height issue
           physics: AlwaysScrollableScrollPhysics(),
           itemCount: ridesPrefsProvider.preferencesHistory.length,
           itemBuilder: (ctx, index) => RidePrefHistoryTile(
             ridePref: ridesPrefsProvider.preferencesHistory[index],
-            onPressed: () =>
-                onRidePrefSelected(ctx, ridesPrefsProvider.preferencesHistory[index]),
+            onPressed: () => onRidePrefSelected(
+                ctx, ridesPrefsProvider.preferencesHistory[index]),
           ),
-        ),
-      );
+        );
+    }
   }
-}
-}
 
-
+}
 
 class BlaBackground extends StatelessWidget {
   const BlaBackground({super.key});
